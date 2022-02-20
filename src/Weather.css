@@ -1,0 +1,32 @@
+.Weather {
+  background-color: #101935;
+  border-radius: 5px;
+  color: white;
+  padding: 20px;
+}
+
+.Weather form {
+  margin-bottom: 10px;
+}
+
+.search-button {
+  border: 2px solid none !important;
+  border-style: none !important;
+  background: #564787 !important;
+  color: #dbcbd8;
+  transition: ease-in-out;
+}
+
+.search-button:hover {
+  background: #dbcbd8 !important;
+  color: #564787 !important;
+}
+
+.Weather ul {
+  list-style: none;
+  padding: 0;
+}
+
+.Weather img {
+  max-width: 100%;
+}
