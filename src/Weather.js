@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormattedDate from "./FormanttedDate";
+import WeatherInfo from "./WeatherInfo";
 
 import "./Weather.css";
 
 export default function Weather(props) {
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState({});
+  const [city, setCity] = useState(props.defaultCity);
+  const [weather, setWeather] = useState({ ready: false });
   function displayWeather(response) {
     setWeather({
       ready: true,
@@ -22,8 +22,16 @@ export default function Weather(props) {
   function handleSubmit(event) {
     event.preventDefault();
   }
+
+  function search() {
+    let apiKey = "8e7ae886bfd9f66febdffcb5fb779942";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayWeather);
+  }
+
   function updateCity(event) {
     setCity(event.target.value);
+    search();
   }
   let form = (
     <form onSubmit={handleSubmit}>
@@ -47,31 +55,11 @@ export default function Weather(props) {
     return (
       <div className="Weather">
         {form}
-        <h1>{weather.city}</h1>
-        <ul>
-          <li>
-            <FormattedDate date={weather.date} />
-          </li>
-          <li>{weather.description}</li>
-        </ul>
-        <div className="row">
-          <div className="col-6">
-            <img src={weather.icon} alt={weather.description} />{" "}
-            {Math.round(weather.temperature)}°C
-          </div>
-          <div className="col-6">
-            <ul>
-              <li>Humidity: {weather.humidity}%</li>
-              <li>Wind: {Math.round(weather.wind)}km/h</li>
-            </ul>
-          </div>
-        </div>
+        <WeatherInfo data={weather} />
       </div>
     );
   } else {
-    let apiKey = "8e7ae886bfd9f66febdffcb5fb779942";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(displayWeather);
+    search();
     return form;
   }
 }
