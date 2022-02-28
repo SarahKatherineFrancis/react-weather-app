@@ -23,6 +23,7 @@ export default function Weather(props) {
   }
   function handleSubmit(event) {
     event.preventDefault();
+    search();
   }
 
   function search() {
@@ -33,7 +34,6 @@ export default function Weather(props) {
 
   function updateCity(event) {
     setCity(event.target.value);
-    search();
   }
   let form = (
     <form onSubmit={handleSubmit}>
