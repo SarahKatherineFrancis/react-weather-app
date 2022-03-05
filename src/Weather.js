@@ -43,6 +43,7 @@ export default function Weather(props) {
             type="search"
             placeholder="Enter a city..."
             onChange={updateCity}
+            className="search-bar"
           />
         </div>
         <div className="col-3">
